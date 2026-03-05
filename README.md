@@ -60,3 +60,42 @@ O dashboard será considerado APROVADO se:
 ====================================================================
                         FIM DO ROTEIRO
 ====================================================================
+
+
+
+
+
+====================================================================
+                        LOADTEST
+====================================================================
+
+# Load Test — API com loadtest
+
+## Instalação
+
+Requer Node.js instalado.
+
+
+npm install -g loadtest
+
+
+## Comando utilizado
+
+
+loadtest -n 300 -c 10 --rps 10 http://10.91.249.10:3014/api/teste
+
+
+`-n 300` define o total de requisições, `-c 10` simula 10 usuários simultâneos e `--rps 10` limita o ritmo a 10 requests por segundo, resultando em aproximadamente 30 segundos de teste.
+
+## Resultado
+
+Todos os 300 requests foram concluídos sem erros. A latência média foi de 903ms, acima do ideal (recomendado abaixo de 300ms). O percentil 50% respondeu em 363ms, porém o percentil 95% chegou a 3397ms e o pior caso atingiu 7738ms, indicando gargalo sob carga simultânea.
+
+## Possíveis causas da latência alta
+
+O acúmulo de requisições simultâneas pode estar gerando fila de processamento, gargalo no banco de dados ou limitação de recursos no servidor como CPU e memória.
+
+## Referências
+
+- [loadtest no npm](https://www.npmjs.com/package/loadtest)
+- [Repositório oficial](https://github.com/alexfernandez/loadtest)
